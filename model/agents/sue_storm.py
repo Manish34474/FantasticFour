@@ -7,6 +7,10 @@ from model.environment import Environment
 from model.agents.agent import AgentRole
 from model.location import Location
 
+from model.actions.move import Move
+from model.actions.repair import Repair
+from model.actions.protect import Protect
+
 from controller.config.hero_config import SueStormConfig as CONFIG
 from controller.config.config import Config as WorldConfig
 
@@ -32,6 +36,19 @@ class SueStorm(Agent):
         """              
         actions = []
         actionable_locations = environment.get_adjacent_locations(self._location, self.scan_range)
+
+        for loc in actionable_locations:
+            scanned_agent = environment.get_agent(loc)
+
+            if scanned_agent is None:
+                actions.append(Move(loc, self))
+            
+            elif scanned_agent.get_agent_role() is AgentRole.BRIDGE:
+                if scanned_agent.get_health() < 1.0:
+                        actions.append(Repair(loc, self))
+                actions.append(Protect(loc, self))
+    
+        actions.append(Protect(Location(self._location.get_x(), self._location.get_y(), self.barrier_range), self))
 
         return actions
 

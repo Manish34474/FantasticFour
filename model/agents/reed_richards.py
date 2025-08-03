@@ -8,6 +8,9 @@ from model.agents.agent import AgentRole
 from controller.config.hero_config import ReedRichardConfig as CONFIG
 from controller.config.config import Config as WorldConfig
 
+from model.actions.repair import Repair
+from model.actions.move import Move
+from model.actions.protect import Protect
 
 if TYPE_CHECKING:
     from model.location import Location
@@ -35,6 +38,16 @@ class ReedRichards(Agent):
         
         actions = []
 
-        "TODO: Find out the possible actions for Reed Richards in the current environment"
+        for loc in actionable_locations:
+            scanned_agent = environment.get_agent(loc)
+
+            if scanned_agent is None:
+                actions.append(Move(loc, self))
+
+
+            elif scanned_agent.get_agent_role() is AgentRole.BRIDGE:
+                if scanned_agent.get_health() < 1.0:
+                    actions.append(Repair(loc, self))
+                actions.append(Protect(loc, self))
 
         return actions
