@@ -189,5 +189,69 @@ class Earth(Environment):
         This method is responsible for processing the actions registered by agents in the environment.
         It should handle the order of execution and any potential conflicts.
         """
-        # The implementation of this method is currently missing.
-        pass
+        from model.agents.galactus import Galactus
+
+        # filter out move actions from all actions
+        move_actions = [action for action in self.__action_buffer if type(action) == Move]
+
+        # count the number of occurrences of each move action
+        counts = Counter(move_actions)
+        
+        # non-repeating move actions are valid moves
+        valid_moves = [move for move in move_actions if counts[move] == 1]
+
+        # ensure galactus move is executed last
+        gal_idx = next((i for i, agt in enumerate(valid_moves) if isinstance(agt._agent, Galactus)), None)
+        galactus_move = valid_moves.pop(gal_idx) if gal_idx is not None else None
+        [action.execute(self) for action in valid_moves]
+
+        #resolve attack and protect actions
+        # step1: filter attack and protect actions
+        # step2: execute an attack only if there is no protect action on the same location
+        # step3: the protect action may contain location with range > 0
+        # step4: if there are multiple protect actions on the same location, one is enough
+        # step5: execute all other actions (except move) as they are
+
+        for action in self.__action_buffer:
+            if action is not None and type(action) == Attack:
+                if any(action.get_location() in protect.get_location().get_points() for protect in self.__action_buffer if type(protect) == Protect):
+                    continue
+                else:
+                    reward = action.execute(self)
+                    if reward > 0: h_reward += reward
+                    else: v_reward += reward * -1
+            
+
+            elif action is not None and type(action) != Move:
+                reward = action.execute(self)
+                if reward > 0: h_reward += reward
+                else: v_reward += reward * -1
+        
+
+
+        self.__action_buffer.clear()
+    
+        self.__silver_surfer_respawn()
+        
+        # Game win or lose logic
+        # if all bridges have full health, the game is won
+        bridge_agents = [agent for row in self.__grid for agent in row if agent is not None and agent.get_agent_role() == AgentRole.BRIDGE]
+        if all(bridge._health >= 1.0 for bridge in bridge_agents) and len(bridge_agents) == BridgeConfig.num_of_bridges:
+            self.__status = FightStatus.WON
+            return ()
+        
+        if len(bridge_agents) < BridgeConfig.num_of_bridges or any(bridge._health <= 0.0 for bridge in bridge_agents):
+            self.__status = FightStatus.LOST
+            return ()
+        
+        hero_agents = [agent for row in self.__grid for agent in row if agent is not None and agent.get_agent_role() == AgentRole.HERO]
+        if len(hero_agents) == 0:
+            self.__status = FightStatus.LOST
+            return ()
+
+        franklin_agents = [agent for row in self.__grid for agent in row if agent is not None and agent.__class__ == Franklin]
+        if len(franklin_agents) == 0:
+            self.__status = FightStatus.LOST
+            return ()
+
+        return ()
