@@ -31,7 +31,7 @@ class HumanTorch(Agent):
         self.close_attack_rate = CONFIG.close_attack_rate
         self.damage_rate = CONFIG.damage_rate
     
-
+ 
     def actions(self, environment: Environment) -> list[Optional[Action]]:
         """
         Get the list of actions available to Human Torch in the given environment.
@@ -42,8 +42,15 @@ class HumanTorch(Agent):
         movement_range = environment.get_adjacent_locations(self._location, 1)
         actionable_locations = environment.get_adjacent_locations(self._location, self.scan_range)
 
+        franklin_flag = False
+        franklin_agent = None
+
         for loc in movement_range:
             scanned_agent = environment.get_agent(loc)
+
+            if scanned_agent.__class__.__name__ == "Franklin":
+                franklin_flag = True
+                franklin_agent = scanned_agent
 
             if scanned_agent is None:
                 actions.append(Move(loc, self))
@@ -67,5 +74,21 @@ class HumanTorch(Agent):
                 elif scanned_agent.get_agent_role() is AgentRole.VILLAIN:
                     if scanned_agent.get_health() > 0.0:
                         actions.append(Attack(loc, self))
+                
+        if franklin_flag:
+            for loc in movement_range:
+                scanned_agent = environment.get_agent(loc)
+
+                if scanned_agent is None:
+                    m = GLOBAL_CONFIG.world_size
+                    move_x = (m + loc.get_x() - self._location.get_x()) % m
+                    move_y = (m + loc.get_y() - self._location.get_y()) % m
+                    franklin_loc = franklin_agent.get_location()
+                    franklin_loc.set_x(franklin_loc.get_x() + move_x)
+                    franklin_loc.set_y(franklin_loc.get_y() + move_y)
+
+                    if environment.get_agent(franklin_loc) is None:
+                        actions.append(Move(loc, self, move_franklin=True))
+
         
         return actions

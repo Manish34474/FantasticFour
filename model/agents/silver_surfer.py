@@ -29,7 +29,6 @@ class SilverSurfer(Agent):
         self.close_attack_rate = CONFIG.close_attack_rate
 
 
-
     def actions(self, environment: Environment) -> list[Optional[Action]]:
         movement_range = environment.get_adjacent_locations(self._location, self.__move_range)
         actionable_range = environment.get_adjacent_locations(self._location)
