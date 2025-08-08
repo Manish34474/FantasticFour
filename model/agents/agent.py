@@ -36,12 +36,41 @@ class Agent(ABC):
         self._location = location
         self._role = role
         self._health = health if health is not None else 1.0
+        self.q_table = defaultdict(float)
+        self.alpha = self.alpha = 0.1   # learning rate
+        self.gamma = 0.9   # discount
+        self.epsilon = 0.2 # exploration
+
+        self.filepath = f"./model/agents/q_tables/{self.__class__.__name__}.pkl"
+
+        if os.path.exists(self.filepath):
+            self.load_q()
 
 
+    
     @abstractmethod
     def get_state(self, environment: Environment) -> tuple:
         pass
     
+
+    def update_q(self, old_state, action, reward, new_state, env):
+        if self.actions(env) is None:
+            return
+        
+        best_next = max([self.q_table[(new_state, a)] for a in self.actions(env)], default=0)
+        self.q_table[(old_state, action)] += self.alpha * (
+            reward + self.gamma * best_next - self.q_table[(old_state, action)]
+        )
+    
+
+    def save_q(self) -> None:
+        with open(self.filepath, "wb") as f:
+            pickle.dump(self.q_table, f)
+        
+    
+    def load_q(self) -> None:
+        with open(self.filepath, "rb") as f:
+            self.q_table = pickle.load(f)
 
     def __eq__(self, other: 'Agent') -> bool:
         """
@@ -135,7 +164,7 @@ class Agent(ABC):
     
     def pick_action(self, environment: Environment) -> Action:
         """
-        Pick an action for an Agent to perform.
+        Pick an action for Sue Storm to perform.
         :return: The action to be performed.
         """
         import random
@@ -145,6 +174,9 @@ class Agent(ABC):
         if available_actions is None:
             return None
 
+        state = self.get_state(environment)
 
-        return random.choice(available_actions)
-
+        if random.random() < self.epsilon:
+            return random.choice(available_actions)
+        else:
+            return max(available_actions, key=lambda a: self.q_table[(state, a)])
