@@ -19,6 +19,8 @@ from controller.config.bridge_config import BridgeConfig
 from controller.config.galactus_config import GalactusConfig
 from controller.config.config import Config
 
+from view.gui import Gui
+
 
 class Simulator:
     """Class representing a simulator."""
@@ -38,7 +40,8 @@ class Simulator:
         agent_colours = {Galactus: "red", ReedRichards: "blue", SueStorm: "green", TheThing: "black", None: "white", 
                          SilverSurfer: "cyan", HumanTorch: "yellow", Bridge: "magenta", Headquarter: "orange", Franklin: "pink"}
         
-        self.__gui = None # For Now
+        self.__gui = Gui(self.__earth, agent_colours)
+        # self.__gui.render()
 
         self.__ss_intro_step = 100
         self.__gal_intro_step = 500
@@ -127,16 +130,24 @@ class Simulator:
         """Run the simulation."""
         self.__is_running = True
 
+        state_dict = {agent.name(): agent.get_state(self.__earth) for agent in self.__agents}
+        print(state_dict)
+        action_dict = {agent.name(): None for agent in self.__agents}
+
         num_episode = 1
-        
+        cum_h_reward = 0
+        cum_v_reward = 0
         step = 0
 
         while self.__is_running:
-            self.__update(state_dict, action_dict)
-           
+            h_rw, v_rw = self.__update(state_dict, action_dict)
+            cum_h_reward += h_rw
+            cum_v_reward += v_rw
+            # self.__render()
             step += 1
             if(num_episode % 10 == 0):
                 print(f"\r[Ep {num_episode} | step {step}]", end="", flush=True)
+            # time.sleep(0.5)
 
             if step == self.__ss_intro_step:
                 self.__add_silver_surfer()
@@ -145,10 +156,18 @@ class Simulator:
                 self.__add_galactus()
 
             if self.__earth.get_status() == FightStatus.WON or self.__earth.get_status() == FightStatus.LOST:
+                for agent in self.__agents:
+                    agent.save_q()
+
                 self.__earth.clear()
                 self.__agents.clear()
                 self.__generate_initial_population()
+                state_dict = {agent.name(): agent.get_state(self.__earth) for agent in self.__agents}
+                if(num_episode % 10 == 0 or num_episode == 0):
+                    print(f"[Ep {num_episode}]: Cumulative Hero R/w = {cum_h_reward}")
                 num_episode += 1
+                cum_h_reward = 0
+                cum_v_reward = 0
                 step = 0
 
                 
@@ -161,7 +180,7 @@ class Simulator:
         """Render the current state of the simulation."""
         self.__gui.render()
 
-    def __update(self, state_dict, action_dict):
+    def __update(self, state_dict, action_dict) -> int:
         """Update the simulation state."""
         for agent in self.__agents:
 
@@ -169,8 +188,27 @@ class Simulator:
                 continue
 
             action = agent.pick_action(self.__earth)
+            action_dict[agent.name()] = action
             self.__earth.register_action(action)
 
-        self.__earth.execute_actions()          
+        h_reward, v_reward = self.__earth.execute_actions()
+
+        for agent in self.__agents:
+            if agent.get_location() is None:
+                continue
+
+            a_reward = h_reward if agent.get_agent_role() is AgentRole.HERO else v_reward
+            new_state = agent.get_state(self.__earth)
+
+            # When silver surfer and galactus are first introduced
+            if agent.name() not in state_dict:
+                state_dict[agent.name()] = new_state
+                continue
+
+            agent.update_q(state_dict[agent.name()], action_dict[agent.name()], a_reward,new_state , self.__earth)
+            state_dict[agent.name()] = new_state
+            
 
         self.__simulation_step += 1
+
+        return h_reward, v_reward

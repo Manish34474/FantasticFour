@@ -1,11 +1,3 @@
-"""
-This module defines the Earth environment for a simulation.
-
-It includes the `Earth` class, which represents a grid-based environment where agents
-can interact, and the `FightStatus` enum to track the state of a conflict within
-the environment.
-"""
-
 from __future__ import annotations
 
 from collections import Counter
@@ -13,52 +5,49 @@ from typing import Optional, TYPE_CHECKING
 from enum import Enum
 
 from controller.config.config import Config
+from controller.config.silver_surfer_config import SilverSurferConfig
+from controller.config.bridge_config import BridgeConfig
+
+from model.actions.move import Move
+from model.actions.attack import Attack
+from model.actions.protect import Protect
 
 from model.environment import Environment
 from model.location import Location
 from model.agents.agent import Agent, AgentRole
+from model.agents.franklin import Franklin
 
 if TYPE_CHECKING:
     from model.agents.agent import Agent
     from model.actions.action import Action
 
 class FightStatus(Enum):
-    """
-    Enum representing the status of a fight within the Earth environment.
-
-    - `WON`: Indicates the fight has been won.
-    - `LOST`: Indicates the fight has been lost.
-    - `RUNNING`: Indicates the fight is ongoing.
-    """
+    """Enum representing the status of the Earth environment."""
     WON = 1
     LOST = 0
     RUNNING = -1
 
 class Earth(Environment):
-    """
-    Concrete implementation of the `Environment` class representing the Earth.
-
-    This class manages a grid of agents, their actions, and the overall status of
-    the environment. It handles agent placement, movement, and interaction.
-    """
+    """Concrete implementation of the Environment class representing the Earth."""
 
     def __init__(self):
         """
-        Initialise the Earth environment.
+        Initialise the Mars environment.
 
-        Initialises a grid with dimensions based on the world size specified in the `Config` module.
+        Initialises a grid with dimensions based on the world size specified in the Config module.
         """
-        # Call the constructor of the parent class (Environment)
         super().__init__()
-        # Initialize a 2D list (grid) to store agents, with dimensions from Config.
         self.__grid: list[list[Optional[Agent]]] = [
             [None for _ in range(self.get_width())] for _ in range(self.get_height())
         ]
 
-        # A buffer to store actions that need to be executed.
         self.__action_buffer = []
-        # The current status of the fight, initialized to RUNNING.
         self.__status = FightStatus.RUNNING
+
+        # for silver surfer respawn
+        self.__ss_timer = 0
+        self.__ss_flag = True
+        self.__ss_agent = None
 
 
     def __str__(self):
@@ -68,10 +57,8 @@ class Earth(Environment):
         Returns:
             str: A string representation of the Earth environment including its dimensions.
         """
-        # Create a visual representation of the grid using agent class names or '.' for empty cells.
         grid = '\n'.join([' '.join(['.  ' if cell is None else cell.__class__.__name__[0:3] for cell in row]) for row in self.__grid])
         grid += '\n\n\n'
-        # Append the health of each agent in the grid to the string representation.
         for row in self.__grid:
             for cell in row:
                 if cell is not None:
@@ -79,53 +66,38 @@ class Earth(Environment):
         return grid
 
     def get_grid(self) -> list[list[Optional[Agent]]]:
-        """
-        Returns a copy of the current grid.
-
-        Returns:
-            list[list[Optional[Agent]]]: A copy of the 2D grid containing agents.
-        """
         return self.__grid.copy()
 
     def clear(self) -> None:
-        """
-        Clears all agents from the grid and resets the environment status.
-        """
-        # Reinitialize the grid with `None` values.
+        """Clears all agents from the grid."""
         self.__grid = [[None for _ in range(Config.world_size)] for _ in range(Config.world_size)]
 
-        # Reset the action buffer and fight status.
         self.__action_buffer = []
         self.__status = FightStatus.RUNNING
 
+        # for silver surfer respawn
+        self.__ss_timer = 0
+        self.__ss_flag = True
+        self.__ss_agent = None
 
-    def get_status(self) -> FightStatus:
-        """
-        Returns the current fight status of the environment.
-
-        Returns:
-            FightStatus: The status of the fight (e.g., `RUNNING`, `WON`, `LOST`).
-        """
+    def get_status(self) -> FightStatus: 
         return self.__status
 
     def get_agent(self, location: Location) -> Optional[Agent]:
         """
-        Returns the agent at a given location, or None if location is invalid.
+        Returns the agent at a given location, or None if location is None.
 
         Args:
             location (Location): The location to retrieve the agent from.
 
         Returns:
-            Optional[Agent, None]: The agent at the specified location, or `None` if the location is outside the grid.
+            Optional[Agent, None]: The agent at the specified location, or None if the location is outside the grid.
         """
-        # Check if the provided location is valid.
         if location:
-            # Wrap the coordinates to handle out-of-bounds locations.
             wrapped_x = location.get_x() % Config.world_size
             wrapped_y = location.get_y() % Config.world_size
             return self.__grid[wrapped_y][wrapped_x]
 
-        # Return `None` if the location object is not valid.
         return None
 
     def get_adjacent_locations(self, location: Location, scan_range: int = 1) -> list[Location]:
@@ -134,14 +106,25 @@ class Earth(Environment):
 
         Args:
             location (Location): The location to find adjacent positions for.
-            scan_range (int): The range to scan for adjacent locations.
 
         Returns:
             List[Location]: A list of adjacent positions.
         """
-        # Get all points within the specified scan range, including the center.
+        # directions = [(-1, -1), (0, -1), (1, -1),
+        #               (-1, 0), (1, 0),
+        #               (-1, 1), (0, 1), (1, 1)]
+        
+        # if(scan_range > 1):
+        #     i = 0
+        #     for i in range(2, scan_range+1):
+        #         add_directions = [(x* i, y * i) for x,y in directions]
+        #         directions.extend(add_directions)
+
+        # x, y = location.get_x(), location.get_y()
+        # return [Location((x + dx) % self.get_width(), (y + dy) % self.get_height()) for dx, dy in
+        #         directions]
+
         locs = Location(location.get_x(), location.get_y(), scan_range).get_points()
-        # Remove the center point to get only the adjacent locations.
         locs.remove(location)
         return locs
 
@@ -154,41 +137,66 @@ class Earth(Environment):
             agent (Agent): The agent to be placed.
             location (Location): The location where the agent should be placed.
         """
-        # Check if the location is valid and has a range of 0 (single point).
         if location and location.get_range() == 0:
-            # Wrap coordinates to handle out-of-bounds locations.
             wrapped_x = location.get_x() % Config.world_size
             wrapped_y = location.get_y() % Config.world_size
             self.__grid[wrapped_y][wrapped_x] = agent
-
-        # Check if the location is valid and has a range greater than 0.
+        
         elif location and location.get_range() > 0:
-            # Get all points within the specified range.
             points = location.get_points()
-            # Place the agent at each point in the range.
             for point in points:
                 self.__grid[point.get_y()][point.get_x()] = agent
+
+    
+    def set_ss_flag(self, flag: bool, location: Location) -> None:
+        """
+        Sets the flag indicating whether the Silver Surfer is currently in the environment.
+
+        Args:
+            flag (bool): True if Silver Surfer is present, False otherwise.
+        """
+        self.__ss_flag = flag
+        self.__ss_agent = self.get_agent(location)
 
 
     def register_action(self, action: Action) -> None:
         """
-        Registers an action to be executed later.
+        Registers an action to be executed later."""
 
-        Args:
-            action (Action): The action object to be added to the buffer.
-        """
-        # If the action is not `None`, add it to the action buffer.
         if action:
             self.__action_buffer.append(action)
 
+    
+    def __silver_surfer_respawn(self) -> None:
 
-    def execute_actions(self) -> tuple:
+        import random
+
+        # Silver Surfer respawn logic
+        if self.__ss_flag == False :
+            if self.__ss_timer == SilverSurferConfig.ss_respawn_time :
+                self.__ss_flag = True
+                self.__ss_timer = 0
+
+                # respawn silver surfer
+                while True:
+                    x = random.randint(0, Config.world_size - 1)
+                    y = random.randint(0, Config.world_size - 1)
+                    location = Location(x, y)
+
+                    if self.get_agent(location) is None:
+                        self.__ss_agent.set_location(location)
+                        self.set_agent(self.__ss_agent, location)
+                        break
+            
+            else:
+                self.__ss_timer += 1
+    
+    def execute_actions(self) -> None:
         """
         Executes all actions in the action buffer, ensuring that each move action is executed only once.
-
-        This method is responsible for processing the actions registered by agents in the environment.
-        It should handle the order of execution and any potential conflicts.
         """
+       
+
         from model.agents.galactus import Galactus
 
         # filter out move actions from all actions
@@ -200,10 +208,19 @@ class Earth(Environment):
         # non-repeating move actions are valid moves
         valid_moves = [move for move in move_actions if counts[move] == 1]
 
+        # reward value
+        h_reward = 0
+        v_reward = 0
+
         # ensure galactus move is executed last
         gal_idx = next((i for i, agt in enumerate(valid_moves) if isinstance(agt._agent, Galactus)), None)
         galactus_move = valid_moves.pop(gal_idx) if gal_idx is not None else None
-        [action.execute(self) for action in valid_moves]
+        reward_list = [action.execute(self) for action in valid_moves]
+        h_reward += sum([r for r in reward_list if r > 0])
+        v_reward -= sum([r for r in reward_list if r < 0])
+
+        v_reward -= galactus_move.execute(self) if galactus_move else 0
+
 
         #resolve attack and protect actions
         # step1: filter attack and protect actions
@@ -238,20 +255,26 @@ class Earth(Environment):
         bridge_agents = [agent for row in self.__grid for agent in row if agent is not None and agent.get_agent_role() == AgentRole.BRIDGE]
         if all(bridge._health >= 1.0 for bridge in bridge_agents) and len(bridge_agents) == BridgeConfig.num_of_bridges:
             self.__status = FightStatus.WON
-            return ()
+            print("Game Won! Completion of bridges")
+            return (100 + h_reward, v_reward - 100)
         
         if len(bridge_agents) < BridgeConfig.num_of_bridges or any(bridge._health <= 0.0 for bridge in bridge_agents):
             self.__status = FightStatus.LOST
-            return ()
+            print("Game Lost! Due to lack of all bridges")
+            return (h_reward - 100, v_reward + 100)
         
         hero_agents = [agent for row in self.__grid for agent in row if agent is not None and agent.get_agent_role() == AgentRole.HERO]
         if len(hero_agents) == 0:
             self.__status = FightStatus.LOST
-            return ()
+            print("Game Lost! All heroes are dead")
+            return (h_reward - 100, v_reward + 100)
+    
 
         franklin_agents = [agent for row in self.__grid for agent in row if agent is not None and agent.__class__ == Franklin]
         if len(franklin_agents) == 0:
             self.__status = FightStatus.LOST
-            return ()
+            print("Game Lost! Galactus has found Franklin")
+            return (h_reward - 100, v_reward + 100)
 
-        return ()
+        return (h_reward, v_reward)
+
