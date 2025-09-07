@@ -73,7 +73,7 @@ class Move(Action):
         if self.__move_franklin: environment.set_agent(None, franklin_agent.get_location())
 
         move_dir = (( Config.world_size + self._location.get_x() - self._agent.get_location().get_x()) % Config.world_size, (Config.world_size + self._location.get_y() - self._agent.get_location().get_y()) % Config.world_size)
-        if self.__move_franklin: franklin_loc = Location(self._location.get_x() + move_dir[0], self._location.get_y() + move_dir[1])
+        if self.__move_franklin: franklin_loc = Location(franklin_agent.get_location().get_x() + move_dir[0], franklin_agent.get_location().get_y() + move_dir[1])
 
         environment.set_agent(self._agent, self._location)
         if self.__move_franklin: environment.set_agent(franklin_agent, franklin_loc)
