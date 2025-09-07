@@ -27,7 +27,7 @@ class SilverSurfer(Agent):
         self.damage_rate = CONFIG.ss_damage_rate
         self.attack_health_reduce = CONFIG.attack_health_reduce
         self.close_attack_rate = CONFIG.close_attack_rate
-        self.epsilon = 1.0
+        self.epsilon = 0.2
 
     def get_state(self, environment):
         # state = (region_id, bridge_distance_bin, brige_health_bin, enemy_distance_bin)
