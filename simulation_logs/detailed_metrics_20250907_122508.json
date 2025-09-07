@@ -1,0 +1,811 @@
+{
+  "run_id": "20250907_122508",
+  "total_episodes": 100,
+  "avg_reward": 210.2370355521304,
+  "avg_episode_length": 936.84,
+  "win_rate": 0.05,
+  "avg_hero_reward": 183.33802370142024,
+  "avg_villain_reward": -26.89901185071015,
+  "episode_details": [
+    {
+      "episode": 1,
+      "reward": -168.46001194332217,
+      "length": 830,
+      "win_status": 0,
+      "hero_reward": -71.30667462888147,
+      "villain_reward": 97.15333731444072
+    },
+    {
+      "episode": 2,
+      "reward": -172.46589874837872,
+      "length": 214,
+      "win_status": 0,
+      "hero_reward": -73.97726583225247,
+      "villain_reward": 98.48863291612624
+    },
+    {
+      "episode": 3,
+      "reward": -161.06434426265483,
+      "length": 569,
+      "win_status": 0,
+      "hero_reward": -60.04289617510324,
+      "villain_reward": 101.02144808755159
+    },
+    {
+      "episode": 4,
+      "reward": -156.1797853049315,
+      "length": 694,
+      "win_status": 0,
+      "hero_reward": -63.119856869954326,
+      "villain_reward": 93.05992843497717
+    },
+    {
+      "episode": 5,
+      "reward": -175.66487369335,
+      "length": 358,
+      "win_status": 0,
+      "hero_reward": -80.4432491289,
+      "villain_reward": 95.22162456444998
+    },
+    {
+      "episode": 6,
+      "reward": -148.22153292945336,
+      "length": 812,
+      "win_status": 0,
+      "hero_reward": -56.81435528630226,
+      "villain_reward": 91.40717764315112
+    },
+    {
+      "episode": 7,
+      "reward": -164.74300492505506,
+      "length": 550,
+      "win_status": 0,
+      "hero_reward": -71.16200328337004,
+      "villain_reward": 93.58100164168502
+    },
+    {
+      "episode": 8,
+      "reward": -170.27456409786942,
+      "length": 330,
+      "win_status": 0,
+      "hero_reward": -76.8497093985796,
+      "villain_reward": 93.4248546992898
+    },
+    {
+      "episode": 9,
+      "reward": -123.36811440156565,
+      "length": 803,
+      "win_status": 0,
+      "hero_reward": -34.91207626771043,
+      "villain_reward": 88.45603813385522
+    },
+    {
+      "episode": 10,
+      "reward": 104.8252723509517,
+      "length": 1983,
+      "win_status": 0,
+      "hero_reward": 175.88351490063445,
+      "villain_reward": 71.05824254968275
+    },
+    {
+      "episode": 11,
+      "reward": -152.1095405045662,
+      "length": 343,
+      "win_status": 0,
+      "hero_reward": -61.406360336377475,
+      "villain_reward": 90.70318016818874
+    },
+    {
+      "episode": 12,
+      "reward": -111.50499099613975,
+      "length": 805,
+      "win_status": 0,
+      "hero_reward": -36.669993997426495,
+      "villain_reward": 74.83499699871327
+    },
+    {
+      "episode": 13,
+      "reward": -105.9383387930792,
+      "length": 803,
+      "win_status": 0,
+      "hero_reward": -26.625559195386217,
+      "villain_reward": 79.31277959769298
+    },
+    {
+      "episode": 14,
+      "reward": -179.79756715418898,
+      "length": 96,
+      "win_status": 0,
+      "hero_reward": -83.19837810279266,
+      "villain_reward": 96.59918905139632
+    },
+    {
+      "episode": 15,
+      "reward": -150.43404382602375,
+      "length": 281,
+      "win_status": 0,
+      "hero_reward": -60.289362550682505,
+      "villain_reward": 90.14468127534124
+    },
+    {
+      "episode": 16,
+      "reward": -142.19928052884197,
+      "length": 228,
+      "win_status": 0,
+      "hero_reward": -51.466187019227974,
+      "villain_reward": 90.733093509614
+    },
+    {
+      "episode": 17,
+      "reward": -71.84798561762224,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 2.4346762549184433,
+      "villain_reward": 74.28266187254069
+    },
+    {
+      "episode": 18,
+      "reward": -169.1405979075812,
+      "length": 153,
+      "win_status": 0,
+      "hero_reward": -76.09373193838746,
+      "villain_reward": 93.04686596919373
+    },
+    {
+      "episode": 19,
+      "reward": -116.41621663475885,
+      "length": 407,
+      "win_status": 0,
+      "hero_reward": -30.277477756505917,
+      "villain_reward": 86.13873887825294
+    },
+    {
+      "episode": 20,
+      "reward": -173.63972377130162,
+      "length": 111,
+      "win_status": 0,
+      "hero_reward": -79.09314918086774,
+      "villain_reward": 94.54657459043388
+    },
+    {
+      "episode": 21,
+      "reward": -148.39075637179545,
+      "length": 262,
+      "win_status": 0,
+      "hero_reward": -62.260504247863636,
+      "villain_reward": 86.13025212393181
+    },
+    {
+      "episode": 22,
+      "reward": 38.964736505513685,
+      "length": 1211,
+      "win_status": 0,
+      "hero_reward": 78.97649100367575,
+      "villain_reward": 40.01175449816206
+    },
+    {
+      "episode": 23,
+      "reward": -53.194355554025236,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 13.537096297316523,
+      "villain_reward": 66.73145185134176
+    },
+    {
+      "episode": 24,
+      "reward": -43.355789623275975,
+      "length": 805,
+      "win_status": 0,
+      "hero_reward": 15.096140251149379,
+      "villain_reward": 58.45192987442535
+    },
+    {
+      "episode": 25,
+      "reward": 12.71715241150065,
+      "length": 849,
+      "win_status": 0,
+      "hero_reward": 65.47810160766707,
+      "villain_reward": 52.76094919616642
+    },
+    {
+      "episode": 26,
+      "reward": 28.83138907016123,
+      "length": 952,
+      "win_status": 0,
+      "hero_reward": 69.88759271344085,
+      "villain_reward": 41.05620364327962
+    },
+    {
+      "episode": 27,
+      "reward": 559.32015332919,
+      "length": 2971,
+      "win_status": 0,
+      "hero_reward": 484.8801022194599,
+      "villain_reward": -74.44005110973008
+    },
+    {
+      "episode": 28,
+      "reward": -9.716612309531172,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 37.522258460312514,
+      "villain_reward": 47.238870769843686
+    },
+    {
+      "episode": 29,
+      "reward": -39.485586878952525,
+      "length": 649,
+      "win_status": 0,
+      "hero_reward": 13.676275414031636,
+      "villain_reward": 53.16186229298416
+    },
+    {
+      "episode": 30,
+      "reward": 1443.879244114865,
+      "length": 4758,
+      "win_status": 1,
+      "hero_reward": 1013.9194960765764,
+      "villain_reward": -429.95974803828864
+    },
+    {
+      "episode": 31,
+      "reward": 6.726689668203242,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 47.48445977880213,
+      "villain_reward": 40.75777011059889
+    },
+    {
+      "episode": 32,
+      "reward": 21.411658023956207,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 57.607772015970895,
+      "villain_reward": 36.19611399201469
+    },
+    {
+      "episode": 33,
+      "reward": 303.6156354231699,
+      "length": 251,
+      "win_status": 1,
+      "hero_reward": 182.41042361544663,
+      "villain_reward": -121.2052118077233
+    },
+    {
+      "episode": 34,
+      "reward": 27.168505611717144,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 67.44567040781138,
+      "villain_reward": 40.27716479609423
+    },
+    {
+      "episode": 35,
+      "reward": -76.06948794267312,
+      "length": 396,
+      "win_status": 0,
+      "hero_reward": -10.712991961782066,
+      "villain_reward": 65.35649598089105
+    },
+    {
+      "episode": 36,
+      "reward": 116.481478619663,
+      "length": 1083,
+      "win_status": 0,
+      "hero_reward": 124.98765241310862,
+      "villain_reward": 8.506173793445626
+    },
+    {
+      "episode": 37,
+      "reward": 47.9294598019779,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 77.28630653465193,
+      "villain_reward": 29.35684673267403
+    },
+    {
+      "episode": 38,
+      "reward": 57.221074077032,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 81.48071605135459,
+      "villain_reward": 24.25964197432259
+    },
+    {
+      "episode": 39,
+      "reward": 328.63592230906596,
+      "length": 301,
+      "win_status": 1,
+      "hero_reward": 199.0906148727106,
+      "villain_reward": -129.54530743635536
+    },
+    {
+      "episode": 40,
+      "reward": 151.85135421125693,
+      "length": 1057,
+      "win_status": 0,
+      "hero_reward": 149.90090280750468,
+      "villain_reward": -1.950451403752254
+    },
+    {
+      "episode": 41,
+      "reward": 72.76252242078608,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 93.84168161385749,
+      "villain_reward": 21.079159193071405
+    },
+    {
+      "episode": 42,
+      "reward": -5.229853611538928,
+      "length": 512,
+      "win_status": 0,
+      "hero_reward": 39.846764258974005,
+      "villain_reward": 45.07661787051293
+    },
+    {
+      "episode": 43,
+      "reward": 932.7459136597784,
+      "length": 2843,
+      "win_status": 0,
+      "hero_reward": 731.4972757731858,
+      "villain_reward": -201.24863788659255
+    },
+    {
+      "episode": 44,
+      "reward": 80.0790322552773,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 95.38602150351822,
+      "villain_reward": 15.306989248240924
+    },
+    {
+      "episode": 45,
+      "reward": 3111.576744324795,
+      "length": 9342,
+      "win_status": 0,
+      "hero_reward": 2191.0511628831964,
+      "villain_reward": -920.5255814415984
+    },
+    {
+      "episode": 46,
+      "reward": 921.3297882543177,
+      "length": 1859,
+      "win_status": 1,
+      "hero_reward": 612.553192169545,
+      "villain_reward": -308.7765960847727
+    },
+    {
+      "episode": 47,
+      "reward": 395.42320849116595,
+      "length": 448,
+      "win_status": 1,
+      "hero_reward": 243.61547232744397,
+      "villain_reward": -151.80773616372198
+    },
+    {
+      "episode": 48,
+      "reward": 172.81139344858656,
+      "length": 930,
+      "win_status": 0,
+      "hero_reward": 160.54092896572442,
+      "villain_reward": -12.270464482862153
+    },
+    {
+      "episode": 49,
+      "reward": 116.99851905800831,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 117.99901270533888,
+      "villain_reward": 1.000493647330572
+    },
+    {
+      "episode": 50,
+      "reward": 119.18784680736574,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 126.79189787157719,
+      "villain_reward": 7.604051064211447
+    },
+    {
+      "episode": 51,
+      "reward": 125.44345971422477,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 123.62897314281652,
+      "villain_reward": -1.8144865714082528
+    },
+    {
+      "episode": 52,
+      "reward": 147.11710847245945,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 148.74473898163964,
+      "villain_reward": 1.6276305091802072
+    },
+    {
+      "episode": 53,
+      "reward": 164.76818139134366,
+      "length": 878,
+      "win_status": 0,
+      "hero_reward": 151.51212092756245,
+      "villain_reward": -13.256060463781196
+    },
+    {
+      "episode": 54,
+      "reward": 145.10118983049557,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 146.06745988699703,
+      "villain_reward": 0.9662700565014433
+    },
+    {
+      "episode": 55,
+      "reward": 152.2399149901203,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 141.49327666008023,
+      "villain_reward": -10.74663833004007
+    },
+    {
+      "episode": 56,
+      "reward": 153.49703629118181,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 142.33135752745454,
+      "villain_reward": -11.165678763727271
+    },
+    {
+      "episode": 57,
+      "reward": 147.83424888916858,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 137.22283259277904,
+      "villain_reward": -10.611416296389521
+    },
+    {
+      "episode": 58,
+      "reward": 164.12448186326765,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 151.4163212421784,
+      "villain_reward": -12.708160621089249
+    },
+    {
+      "episode": 59,
+      "reward": 169.61875151500197,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 157.07916767666796,
+      "villain_reward": -12.539583838334025
+    },
+    {
+      "episode": 60,
+      "reward": 176.59712312354287,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 159.73141541569527,
+      "villain_reward": -16.86570770784762
+    },
+    {
+      "episode": 61,
+      "reward": 173.4417691617025,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 154.29451277446833,
+      "villain_reward": -19.147256387234165
+    },
+    {
+      "episode": 62,
+      "reward": 185.15454242499015,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 160.1030282833268,
+      "villain_reward": -25.05151414166336
+    },
+    {
+      "episode": 63,
+      "reward": 183.5387400421053,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 161.02582669473688,
+      "villain_reward": -22.51291334736844
+    },
+    {
+      "episode": 64,
+      "reward": 193.87387493903873,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 165.91591662602582,
+      "villain_reward": -27.957958313012895
+    },
+    {
+      "episode": 65,
+      "reward": 198.3542030714499,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 170.9028020476332,
+      "villain_reward": -27.451401023816672
+    },
+    {
+      "episode": 66,
+      "reward": 201.33408692351117,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 174.8893912823408,
+      "villain_reward": -26.444695641170355
+    },
+    {
+      "episode": 67,
+      "reward": 205.35333936326265,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 177.56889290884172,
+      "villain_reward": -27.784446454420916
+    },
+    {
+      "episode": 68,
+      "reward": 220.51420830462342,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 183.6761388697489,
+      "villain_reward": -36.83806943487451
+    },
+    {
+      "episode": 69,
+      "reward": 233.4207468663261,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 195.61383124421735,
+      "villain_reward": -37.80691562210876
+    },
+    {
+      "episode": 70,
+      "reward": 229.12902713826014,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 189.41935142550682,
+      "villain_reward": -39.70967571275331
+    },
+    {
+      "episode": 71,
+      "reward": 234.28613956407776,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 194.85742637605193,
+      "villain_reward": -39.428713188025824
+    },
+    {
+      "episode": 72,
+      "reward": 242.79807189609392,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 200.53204793072928,
+      "villain_reward": -42.26602396536464
+    },
+    {
+      "episode": 73,
+      "reward": 241.0913271069686,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 203.39421807131225,
+      "villain_reward": -37.69710903565637
+    },
+    {
+      "episode": 74,
+      "reward": 250.9979919729072,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 205.99866131527145,
+      "villain_reward": -44.999330657635724
+    },
+    {
+      "episode": 75,
+      "reward": 257.3281351370389,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 210.21875675802596,
+      "villain_reward": -47.10937837901291
+    },
+    {
+      "episode": 76,
+      "reward": 261.7745352386612,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 213.18302349244078,
+      "villain_reward": -48.59151174622042
+    },
+    {
+      "episode": 77,
+      "reward": 280.4567937732286,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 226.97119584881915,
+      "villain_reward": -53.48559792440942
+    },
+    {
+      "episode": 78,
+      "reward": 282.0141773218635,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 224.6761182145757,
+      "villain_reward": -57.33805910728776
+    },
+    {
+      "episode": 79,
+      "reward": 280.20515375723363,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 225.47010250482242,
+      "villain_reward": -54.73505125241121
+    },
+    {
+      "episode": 80,
+      "reward": 297.69267706972835,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 240.46178471315216,
+      "villain_reward": -57.23089235657618
+    },
+    {
+      "episode": 81,
+      "reward": 284.9182742077618,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 234.6121828051745,
+      "villain_reward": -50.306091402587256
+    },
+    {
+      "episode": 82,
+      "reward": 306.3574946844222,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 250.2383297896148,
+      "villain_reward": -56.11916489480741
+    },
+    {
+      "episode": 83,
+      "reward": 304.9944410186238,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 239.99629401241583,
+      "villain_reward": -64.99814700620797
+    },
+    {
+      "episode": 84,
+      "reward": 315.4624747321033,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 246.97498315473553,
+      "villain_reward": -68.4874915773678
+    },
+    {
+      "episode": 85,
+      "reward": 320.48571727432864,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 250.32381151621905,
+      "villain_reward": -70.16190575810961
+    },
+    {
+      "episode": 86,
+      "reward": 326.60404939267596,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 254.40269959511733,
+      "villain_reward": -72.20134979755865
+    },
+    {
+      "episode": 87,
+      "reward": 340.3521220003442,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 266.90141466689613,
+      "villain_reward": -73.45070733344805
+    },
+    {
+      "episode": 88,
+      "reward": 352.522888380709,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 284.348592253806,
+      "villain_reward": -68.174296126903
+    },
+    {
+      "episode": 89,
+      "reward": 334.4451425583602,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 263.6300950389068,
+      "villain_reward": -70.8150475194534
+    },
+    {
+      "episode": 90,
+      "reward": 348.6506230305822,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 269.1004153537215,
+      "villain_reward": -79.55020767686077
+    },
+    {
+      "episode": 91,
+      "reward": 781.4025991063725,
+      "length": 1221,
+      "win_status": 0,
+      "hero_reward": 612.9350660709148,
+      "villain_reward": -168.46753303545773
+    },
+    {
+      "episode": 92,
+      "reward": 361.8205651665385,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 277.8803767776924,
+      "villain_reward": -83.94018838884608
+    },
+    {
+      "episode": 93,
+      "reward": 365.64375005048055,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 280.42916670032037,
+      "villain_reward": -85.21458335016017
+    },
+    {
+      "episode": 94,
+      "reward": 385.8356164244235,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 310.5570776162823,
+      "villain_reward": -75.27853880814122
+    },
+    {
+      "episode": 95,
+      "reward": 376.82951280168766,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 289.88634186779177,
+      "villain_reward": -86.94317093389587
+    },
+    {
+      "episode": 96,
+      "reward": 390.714709367162,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 297.143139578108,
+      "villain_reward": -93.57156978905402
+    },
+    {
+      "episode": 97,
+      "reward": 1665.9080345413336,
+      "length": 2477,
+      "win_status": 0,
+      "hero_reward": 1171.2720230275556,
+      "villain_reward": -494.6360115137778
+    },
+    {
+      "episode": 98,
+      "reward": 416.2307651555652,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 322.82051010371015,
+      "villain_reward": -93.41025505185509
+    },
+    {
+      "episode": 99,
+      "reward": 432.2807282664758,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 336.8538188443172,
+      "villain_reward": -95.42690942215863
+    },
+    {
+      "episode": 100,
+      "reward": 429.5611739833853,
+      "length": 801,
+      "win_status": 0,
+      "hero_reward": 329.70744932225693,
+      "villain_reward": -99.85372466112834
+    }
+  ]
+}
