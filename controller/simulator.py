@@ -409,12 +409,6 @@ class Simulator:
 
         h_reward, v_reward = self.__earth.execute_actions()
 
-        # --- subtle noisy improvement bias ---
-        drift = (self.current_episode / (self.num_episodes * 2))  # tiny drift factor
-        noise = np.random.normal(0, 0.05)                         # keep unstable
-        h_reward += drift + noise
-        v_reward -= (drift * 0.5) + noise * 0.5   # villains gradually weaken
-
         for agent in self.__agents:
             if agent.get_location() is None:
                 continue
