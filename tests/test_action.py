@@ -1,8 +1,8 @@
 import pytest
 from unittest.mock import MagicMock
 from model.location import Location
-from model.agent import Agent, AgentRole, Environment
-from model.action import Action
+from model.agents.agent import Agent, AgentRole, Environment
+from model.actions.action import Action
 
 # Mock concrete classes for testing abstract `Action`
 class ConcreteAction(Action):
