@@ -1,7 +1,7 @@
 class GalactusConfig:
     """Class representing configuration parameters for galactus agent."""
-    # width = height of galactus' destruction zone
-    gal_dest_zone = 3
+    # range of galactus' destruction zone
+    gal_dest_zone = 1
 
     # scan radius
     scan_radius = 8

@@ -53,8 +53,8 @@ class Simulator:
 
         self.__gui = Gui(self.__earth, agent_colours) if self.__gui_flag else None
 
-        self.__ss_intro_step = 100
-        self.__gal_intro_step = 800
+        self.__ss_intro_step = 5
+        self.__gal_intro_step = 10
         
         # Metrics tracking
         self.num_episodes = num_episodes
@@ -312,7 +312,7 @@ class Simulator:
 
                 if self.__gui_flag:
                     self.__render()
-                    time.sleep(0.5)
+                    # time.sleep(0.5)
                 
                 # Add Silver Surfer and Galactus at specified steps
                 if step == self.__ss_intro_step:
